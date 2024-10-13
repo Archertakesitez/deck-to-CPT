@@ -1,0 +1,4 @@
+pypdf
+spacy
+numpy==1.26.4
+openai

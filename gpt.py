@@ -16,7 +16,7 @@ print(models)
 def summarize_text(text):
     # Call the OpenAI GPT-4 API for text summarization
     response = openai.completions.create(
-        model="gpt-4o-mini",
+        model="gpt-3.5-turbo",
         prompt="Summarize this text",
         max_tokens=200
     )
