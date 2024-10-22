@@ -69,7 +69,7 @@
 
                 const result = await response.json();  
 
-                status.textContent = `Uploaded: ${result.filename}. Not applying CPT code matching yet!`;
+                status.textContent = `Thank you for uploading ${result.filename}! It correspond to CPT ABCDEFG.`;
             } catch (error) {
                 status.textContent = `Error: ${error.message}`;
             }
