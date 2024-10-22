@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pdf to CPT code demo</title>
+    <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+    <div class="upload-container">
+        <h1>Please Upload Your PDF</h1>
+        <form id="uploadForm" action="/upload_pdf/" method="post" enctype="multipart/form-data">
+            <div id="drop-zone">
+                <input type="file" id="fileInput" name="file" accept="application/pdf" style="display: none;">
+                <p>Drag & Drop your PDF file here, then click Submit</p>
+            </div>
+            <button type="button" id="submitBtn">Submit PDF</button>
+        </form>
+        <div id="status"></div> <!-- This will show the uploaded filename -->
+    </div>
+
+    <script>
+        const dropZone = document.getElementById('drop-zone');
+        const fileInput = document.getElementById('fileInput');
+        const form = document.getElementById('uploadForm');
+        const status = document.getElementById('status');  
+        const submitBtn = document.getElementById('submitBtn');  
+
+        // Handle drag over event
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();  
+            dropZone.classList.add('hover');
+        });
+
+        // Handle drag leave event
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.classList.remove('hover');
+        });
+
+        // Handle drop event (drag-and-drop functionality)
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();  
+            dropZone.classList.remove('hover');
+            const files = e.dataTransfer.files;
+            if (files.length) {
+                fileInput.files = files;  
+                status.textContent = `File ready to submit: ${files[0].name}`;
+            }
+        });
+
+        // Handle click to submit the form manually
+        submitBtn.addEventListener('click', () => {
+            if (fileInput.files.length === 0) {
+                status.textContent = "Please drag and drop a file first!";
+            } else {
+                submitForm();  
+            }
+        });
+
+        // Handle form submission via Fetch API
+        async function submitForm() {
+            const formData = new FormData(form);  
+
+            try {
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const result = await response.json();  
+
+                status.textContent = `Uploaded: ${result.filename}. Not applying CPT code matching yet!`;
+            } catch (error) {
+                status.textContent = `Error: ${error.message}`;
+            }
+        }
+    </script>
+</body>
+</html>
