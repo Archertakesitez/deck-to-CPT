@@ -66,3 +66,5 @@ def read_pdf(file: str, company: str) -> list:
             continue
         res.append(text)
     return res
+
+print(read_pdf("april_health.pdf", "april health"))
