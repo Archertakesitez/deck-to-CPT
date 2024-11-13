@@ -77,5 +77,5 @@ def read_pdf(file: str, company: str) -> list:
     return res
 
 
-if __name__ == "__main__":
-    print(read_pdf("Hera Fertility.pdf", "hera fertility"))
+# if __name__ == "__main__":
+#     print(read_pdf("Hera Fertility.pdf", "hera fertility"))
