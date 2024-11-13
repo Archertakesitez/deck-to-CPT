@@ -41,7 +41,7 @@ async def upload_pdf(file: UploadFile = File(...), company: str = Form(...)):
         os.remove(file_path)
     except Exception as e:
         print(f"Error deleting file {file_path}: {e}")
-    return {"CPT_codes": corresponding_CPT}
+    return {"CPT_codes": list(corresponding_CPT.items())}
 
 
 if __name__ == "__main__":
