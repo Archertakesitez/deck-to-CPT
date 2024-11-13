@@ -41,22 +41,22 @@ def replace_names_with_placeholders(text: str) -> str:
 
 
 def replace_company_names(text: str, company_names: str) -> str:
-    company_names = company_names.split(" ")
-    for company in company_names:
-        # Create a regex pattern to match the company name, allowing for optional spaces or line breaks
-        pattern = re.compile(
-            r"\b" + re.sub(r"\s+", r"\\s+", re.escape(company)) + r"\b", re.IGNORECASE
-        )
 
-        # Replace all matches of the pattern with the placeholder
-        text = pattern.sub(" ", text)
+    embedded_pattern = re.compile(
+        re.escape(company_names.replace(" ", "")), re.IGNORECASE
+    )
+    embedded_pattern2 = re.compile(
+        re.escape(company_names), re.IGNORECASE)
+    
+    embedded_pattern3 = re.compile(
+    re.escape(company_names.replace(" ", r"[\w\W]")), re.IGNORECASE
+)
 
-        embedded_pattern = re.compile(
-            re.escape(company.replace(" ", "")), re.IGNORECASE
-        )
-        text = embedded_pattern.sub("[company name]", text)
-
+    text = embedded_pattern.sub("[company name]", text)
+    text = embedded_pattern2.sub("[company name]", text)
+    text = embedded_pattern3.sub("[company name]", text)
     return text
+
 
 
 def read_pdf(file: str, company: str) -> list:
@@ -65,18 +65,17 @@ def read_pdf(file: str, company: str) -> list:
     number_of_pages = len(reader.pages)
     for i in range(number_of_pages):
         page = reader.pages[i]
-        text = page.extract_text().lower()
+        text = page.extract_text()
         text = text.replace("\n", " ")
         text = replace_contact_info(text)
         text = replace_company_names(text, company)
         text = replace_names_with_placeholders(text)
-        if "leadership" in text or "team" in text or "founder" in text:
+        if "leadership" in text.lower() or "team" in text.lower() or "founder" in text.lower():
+            # print(f"page{i} skipped")
             continue
         res.append(text)
-    text_lst = res
-    text = " ".join(text_lst)
-    return text
+    return res
 
 
-# if __name__ == "__main__":
-#     print(read_pdf("../data/April+Health+Introduction+Deck.pdf", "april health"))
+if __name__ == "__main__":
+    print(read_pdf("Hera Fertility.pdf", "hera fertility"))
