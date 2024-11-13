@@ -122,19 +122,19 @@
                 cptCodesBody.innerHTML = "";
 
                 // Display JSON results in the table
-                Object.entries(result.CPT_codes).slice(0, 5).forEach(([code, description]) => {
-                    const row = document.createElement('tr');
+                result.CPT_codes.slice(0, 5).forEach(([code, description]) => {
+    const row = document.createElement('tr');
 
-                    const codeCell = document.createElement('td');
-                    codeCell.textContent = code;
-                    row.appendChild(codeCell);
+    const codeCell = document.createElement('td');
+    codeCell.textContent = code;
+    row.appendChild(codeCell);
 
-                    const descCell = document.createElement('td');
-                    descCell.textContent = description;
-                    row.appendChild(descCell);
+    const descCell = document.createElement('td');
+    descCell.textContent = description;
+    row.appendChild(descCell);
 
-                    cptCodesBody.appendChild(row);
-                });
+    cptCodesBody.appendChild(row);
+});
             } catch (error) {
                 status.textContent = `Error: ${error.message}`;
             } finally {
