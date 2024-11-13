@@ -3,36 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>pdf to CPT code demo</title>
-    <!-- Link the external CSS file -->
+    <title>PDF to CPT Code Demo</title>
     <link rel="stylesheet" href="../static/style.css">
 </head>
 <body>
-    <!-- Big Pretty Maccabee Ventures heading -->
     <div class="brand-heading">Maccabee Ventures</div>
 
-    <div class="upload-container">
-        <h1>Please Upload Your PDF</h1>
-        <form id="uploadForm" action="/upload_pdf/" method="post" enctype="multipart/form-data">
-            <div id="drop-zone">
-                <input type="file" id="fileInput" name="file" accept="application/pdf" style="display: none;">
-                <p>Drag & Drop your PDF file here, then click Submit</p>
+    <div class="main-content">
+        <!-- Left side: Upload form -->
+        <div class="upload-container">
+            <h1>Please Upload Your PDF</h1>
+            <form id="uploadForm" action="/upload_pdf/" method="post" enctype="multipart/form-data">
+                <div id="drop-zone">
+                    <input type="file" id="fileInput" name="file" accept="application/pdf" style="display: none;">
+                    <p>Drag & Drop your PDF file here, or click Submit to select a file</p>
+                </div>
+                <button type="button" id="submitBtn">Submit PDF</button>
+            </form>
+            <div id="status"></div>
+            <div id="loading-container" style="display: none;">
+                <span class="loader"></span>
+                <span class="loading-text">Parsing...</span>
             </div>
-            <button type="button" id="submitBtn">Submit PDF</button>
-        </form>
-        <div id="status"></div> <!-- This will show the uploaded filename -->
+        </div>
+
+        <!-- Right side: Results output -->
+        <div class="results-container" id="resultsContainer">
+            <h2>Parsed CPT Codes</h2>
+            <table id="cptCodesTable">
+                <thead>
+                    <tr>
+                        <th>CPT Code</th>
+                        <th>Code Description</th>
+                    </tr>
+                </thead>
+                <tbody id="cptCodesBody">
+                    <!-- CPT Code rows will be added here dynamically -->
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <script>
         const dropZone = document.getElementById('drop-zone');
         const fileInput = document.getElementById('fileInput');
         const form = document.getElementById('uploadForm');
-        const status = document.getElementById('status');  
-        const submitBtn = document.getElementById('submitBtn');  
+        const status = document.getElementById('status');
+        const submitBtn = document.getElementById('submitBtn');
+        const loadingContainer = document.getElementById('loading-container');
+        const cptCodesBody = document.getElementById('cptCodesBody');
 
         // Handle drag over event
         dropZone.addEventListener('dragover', (e) => {
-            e.preventDefault();  
+            e.preventDefault();
             dropZone.classList.add('hover');
         });
 
@@ -43,11 +66,11 @@
 
         // Handle drop event (drag-and-drop functionality)
         dropZone.addEventListener('drop', (e) => {
-            e.preventDefault();  
+            e.preventDefault();
             dropZone.classList.remove('hover');
             const files = e.dataTransfer.files;
             if (files.length) {
-                fileInput.files = files;  
+                fileInput.files = files;
                 status.textContent = `File ready to submit: ${files[0].name}`;
             }
         });
@@ -55,15 +78,26 @@
         // Handle click to submit the form manually
         submitBtn.addEventListener('click', () => {
             if (fileInput.files.length === 0) {
-                status.textContent = "Please drag and drop a file first!";
+                // If no file is selected, open file picker
+                fileInput.click();
             } else {
-                submitForm();  
+                // If a file is selected, submit the form
+                submitForm();
+            }
+        });
+
+        // Trigger file selection
+        fileInput.addEventListener('change', () => {
+            if (fileInput.files.length > 0) {
+                status.textContent = `File ready to submit: ${fileInput.files[0].name}`;
             }
         });
 
         // Handle form submission via Fetch API
         async function submitForm() {
-            const formData = new FormData(form);  
+            const formData = new FormData(form);
+            loadingContainer.style.display = 'flex';
+            status.textContent = "";  
 
             try {
                 const response = await fetch(form.action, {
@@ -71,12 +105,33 @@
                     body: formData
                 });
 
-                const result = await response.json();  
+                const result = await response.json();
+                loadingContainer.style.display = 'none';
+                status.textContent = "Parsing complete!";
 
-                status.textContent = `Thank you for uploading ${result.filename}! It corresponds to those CPTs: ${result.CPT_codes}.`;
+                // Clear previous results
+                cptCodesBody.innerHTML = "";
+
+                // Display JSON results in the table
+                Object.entries(result.CPT_codes).slice(0, 5).forEach(([code, description]) => {
+                    const row = document.createElement('tr');
+
+                    const codeCell = document.createElement('td');
+                    codeCell.textContent = code;
+                    row.appendChild(codeCell);
+
+                    const descCell = document.createElement('td');
+                    descCell.textContent = description;
+                    row.appendChild(descCell);
+
+                    cptCodesBody.appendChild(row);
+                });
             } catch (error) {
-                status.textContent = `Error: ${error.message}`;
-            }
+            status.textContent = `Error: ${error.message}`;
+        } finally {
+            loadingContainer.style.display = 'none'; // Hide loading icon
+            fileInput.value = ""; // Clear file input so the same or new file can be selected again
+        }
         }
     </script>
 </body>

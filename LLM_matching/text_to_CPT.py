@@ -22,8 +22,8 @@ def predict_cpt_codes(messages):
         cpt_data = response["choices"][0]["message"]["content"].strip()
 
         # Attempt to parse the output into a dictionary format
-        # cpt_dict = json.loads(cpt_data)  # Use json.loads for safer parsing
-        return cpt_data
+        cpt_dict = json.loads(cpt_data)  # Use json.loads for safer parsing
+        return cpt_dict
 
     except json.JSONDecodeError:
         print("Failed to parse JSON response. Here is the raw output:", cpt_data)
@@ -43,11 +43,19 @@ def pdf_to_cpt(file: str, company: str) -> str:
         {
             "role": "user",
             "content": (
-                f"Analyze the following text extracted from a healthcare startup’s pitch deck to identify the most relevant CPT codes based on the services described. Match CPT codes that reflect the types of services, care models, or healthcare management approaches detailed in the text. "
-                f"Rank the top 10 matched CPT codes by relevance to the startup's offerings and output the result in the following JSON format: "
-                f"{{'CPT Code 1': 'Description of CPT Code 1', 'CPT Code 2': 'Description of CPT Code 2', ..., 'CPT Code 10': 'Description of CPT Code 10'}}"
+                "Analyze the following text extracted from a healthcare startup’s pitch deck to identify the most relevant CPT codes based on the services described. Match CPT codes that reflect the types of services, care models, or healthcare management approaches detailed in the text. "
+                "Rank the top 5 matched CPT codes by relevance to the startup's offerings and output the result in the following JSON format: "
+                """{
+    "code": "Description of this CPT Code",
+    "code": "Description of this CPT Code",
+    "code": "Description of this CPT Code",
+    "code": "Description of this CPT Code",
+    "code": "Description of this CPT Code"
+}"""
+                "please just output the json, no triple backticks!"
+                "in json you should only include the CPT code's number, please do not include the characters 'CPT code'..."
                 f"Text: {extracted_texts}\n\n"
-                f"If available and relevant, prioritize codes that are central to the services highlighted in the text."
+                "If available and relevant, prioritize codes that are central to the services highlighted in the text."
             ),
         },
     ]
