@@ -37,7 +37,11 @@ async def upload_pdf(file: UploadFile = File(...)):
     with open(file_path, "wb") as buffer:
         buffer.write(await file.read())
     corresponding_CPT = pdf_to_cpt(file=file_path, company="april health")
-    return {"filename": file.filename, "CPT_codes": corresponding_CPT}
+    try:
+        os.remove(file_path)
+    except Exception as e:
+        print(f"Error deleting file {file_path}: {e}")
+    return {"CPT_codes": corresponding_CPT}
 
 
 if __name__ == "__main__":
