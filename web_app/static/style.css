@@ -165,6 +165,19 @@ h1 {
     background-color: #007bff;
     color: white;
     font-weight: bold;
+    white-space: nowrap; /* Prevent wrapping in headers */
+}
+
+#cptCodesTable th:first-child {
+    width: 150px; /* Fixed width for CPT Code column */
+}
+
+#cptCodesTable td:first-child {
+    white-space: nowrap; /* Prevent wrapping in CPT Code cells */
+}
+
+#cptCodesTable td:nth-child(2) {
+    white-space: normal; /* Allow wrapping in Code Description cells */
 }
 
 #cptCodesTable tr:nth-child(even) {
@@ -173,4 +186,31 @@ h1 {
 
 #cptCodesTable tr:hover {
     background-color: #e0f7fa;
+}
+
+/* Company Name Input Styling */
+.company-input-container {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.company-input-container label {
+    display: block;
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+#companyInput {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    transition: border-color 0.3s ease;
+}
+
+#companyInput:focus {
+    border-color: #007bff;
+    outline: none;
 }

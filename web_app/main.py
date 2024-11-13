@@ -32,11 +32,11 @@ async def index(request: Request):
 
 # Route to handle the PDF upload
 @app.post("/upload_pdf/")
-async def upload_pdf(file: UploadFile = File(...)):
+async def upload_pdf(file: UploadFile = File(...), company: str = Form(...)):
     file_path = os.path.join(UPLOAD_DIR, file.filename)
     with open(file_path, "wb") as buffer:
         buffer.write(await file.read())
-    corresponding_CPT = pdf_to_cpt(file=file_path, company="april health")
+    corresponding_CPT = pdf_to_cpt(file=file_path, company=company)
     try:
         os.remove(file_path)
     except Exception as e:
