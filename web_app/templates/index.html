@@ -7,17 +7,20 @@
     <link rel="stylesheet" href="../static/style.css">
 </head>
 <body>
-    <div class="brand-heading">Maccabee Ventures</div>
-
+    <div class="brand-heading">
+        Convert Deck To CPT Codes
+        <div class="minor-heading">Powered by Maccabee Ventures</div>
+    </div>
     <div class="main-content">
         <!-- Left side: Upload form -->
         <div class="upload-container">
-            <h1>Please Upload Your PDF</h1>
+            <h1>Please Upload Your Deck in PDF</h1>
             <form id="uploadForm" action="/upload_pdf/" method="post" enctype="multipart/form-data">
                 <!-- Company Name Input -->
                 <div class="company-input-container">
-                    <label for="companyInput">Company Name:</label>
+                    <!-- <label for="companyInput">Company Name:</label> -->
                     <input type="text" id="companyInput" name="company" placeholder="Enter your company name" required>
+                    <p class="company-info">Your company name is excluded when sharing your deck’s information with our AI system.</p>
                 </div>
                 
                 <!-- File Upload Section -->

@@ -18,10 +18,19 @@ body {
     font-family: 'Arial', sans-serif;
     font-size: 48px;
     font-weight: bold;
-    color: #007bff;
+    color: #00008B;
     text-align: center;
     margin: 20px 0;
-    text-transform: uppercase;
+}
+
+.minor-heading {
+    font-family: 'Arial', sans-serif;
+    font-size: 24px; /* Smaller font size */
+    font-weight: normal; /* Adjust weight if needed */
+    color:#6A5ACD; /* Optional: lighter color for contrast */
+    text-align: center; /* Position relative to .brand-heading */
+    bottom: -15px; /* Push it slightly below the bottom of .brand-heading */
+    right: 20px; /* Push it to the right corner */
 }
 
 .main-content {
@@ -40,7 +49,7 @@ body {
     padding: 30px;
     box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
     text-align: center;
-    max-width: 400px;
+    max-width: 450px;
 }
 
 /* Loading indicator styling */
@@ -63,17 +72,17 @@ body {
     position: absolute;
     inset: 0px;
     border-radius: 50%;
-    border: 5px solid #7CB9E8;
+    border: 5px solid #6A5ACD;
     animation: prixClipFix 2s linear infinite;
 }
 .loader::after {
     inset: 8px;
     transform: rotate3d(90, 90, 0, 180deg);
-    border-color: #007bff;
+    border-color: #00008B;
 }
 .loading-text {
     font-size: 18px;
-    color: #333;
+    color: #00008B;
 }
 
 @keyframes rotate {
@@ -89,7 +98,7 @@ body {
 
 h1 {
     font-size: 24px;
-    color: #333;
+    color: #00008B;
     margin-bottom: 20px;
 }
 
@@ -113,7 +122,7 @@ h1 {
 #submitBtn {
     margin-top: 20px;
     padding: 10px 20px;
-    background-color: #007bff;
+    background-color: #6A5ACD;
     border: none;
     color: white;
     font-size: 16px;
@@ -123,7 +132,7 @@ h1 {
 }
 
 #submitBtn:hover {
-    background-color: #0056b3;
+    background-color: #00008B;
 }
 
 #status {
@@ -144,7 +153,7 @@ h1 {
 
 .results-container h2 {
     font-size: 24px;
-    color: #333;
+    color: #00008B;
     margin-bottom: 10px;
 }
 
@@ -162,7 +171,7 @@ h1 {
 }
 
 #cptCodesTable th {
-    background-color: #007bff;
+    background-color: #6A5ACD;
     color: white;
     font-weight: bold;
     white-space: nowrap; /* Prevent wrapping in headers */
@@ -197,8 +206,14 @@ h1 {
 .company-input-container label {
     display: block;
     font-size: 18px;
-    color: #333;
+    color: #00008B;
     margin-bottom: 5px;
+}
+
+.company-info {
+    font-size: 14px; /* Smaller than the label */
+    color: #6A5ACD; /* A lighter color for emphasis */
+    margin-top: 10px; /* Spacing between the label and the line */
 }
 
 #companyInput {
@@ -211,6 +226,6 @@ h1 {
 }
 
 #companyInput:focus {
-    border-color: #007bff;
+    border-color: #6A5ACD;
     outline: none;
 }
