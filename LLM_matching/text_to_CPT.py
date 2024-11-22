@@ -3,7 +3,7 @@ import json
 from .pdf_to_text import read_pdf
 
 # Replace 'your_api_key' with your actual GPT API key
-openai.api_key = "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"
+openai.api_key = "replace your api key here"
 
 
 def predict_cpt_codes(messages):
