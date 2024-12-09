@@ -1,7 +1,5 @@
 # Convert Deck To CPT Codes
 > Rosy Xu, Tracy Zhao, Albert Kong, Erchi Zhang
-> 
-> Sponsored by [Maccabee Ventures](https://www.maccabee.vc/)
 <p align = "center">
       <img src="https://github.com/Archertakesitez/deck-to-CPT/blob/main/readme_resource/first_page.png" alt="Convert Deck To CPT Codes" width="700"/>
 </p>
@@ -50,4 +48,6 @@ Now you can visit our website running on http://127.0.0.1:8000/
 - **[Albert Kong](https://github.com/AlbertKong0827)**
 - **[Erchi Zhang](https://github.com/Archertakesitez)**
 
+## Sponsorship 🔥
+Our work is sponsored by [Maccabee Ventures](https://www.maccabee.vc/). Many thanks to Moshe Bellows for his guidance and help in data gathering!
 
