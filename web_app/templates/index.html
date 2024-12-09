@@ -15,21 +15,46 @@
         <!-- Left side: Upload form -->
         <div class="upload-container">
             <h1>Please Upload Your Deck in PDF</h1>
-            <form id="uploadForm" action="/upload_pdf/" method="post" enctype="multipart/form-data">
-                <!-- Company Name Input -->
-                <div class="company-input-container">
-                    <!-- <label for="companyInput">Company Name:</label> -->
-                    <input type="text" id="companyInput" name="company" placeholder="Enter your company name" required>
-                    <p class="company-info">Your company name is excluded when sharing your deck’s information with our AI system.</p>
-                </div>
-                
-                <!-- File Upload Section -->
-                <div id="drop-zone">
-                    <input type="file" id="fileInput" name="file" accept="application/pdf" style="display: none;">
-                    <p>Drag & Drop your PDF file here, or click Submit to select a file</p>
-                </div>
-                <button type="button" id="submitBtn">Submit PDF</button>
-            </form>
+            
+            <!-- Add the instruction text -->
+            <p class="method-instruction">Please choose a parsing method:</p>
+            
+            <!-- Tabs for switching between forms -->
+            <div class="method-tabs">
+                <button class="tab-button active" onclick="showForm('tfidfForm')">Keyword Matching</button>
+                <button class="tab-button" onclick="showForm('pdfToCptForm')">AI Analysis</button>
+            </div>
+            
+            <!-- Form for PDF to CPT -->
+            <div id="pdfToCptForm" class="form-container" style="display: none;">
+                <form id="uploadForm" action="/pdf_to_cpt/" method="post" enctype="multipart/form-data">
+                    <!-- Company Name Input -->
+                    <div class="company-input-container">
+                        <input type="text" id="companyInput" name="company" placeholder="Enter your company name" required>
+                        <p class="company-info">Your company name is excluded when sharing your deck’s information with our AI system.</p>
+                    </div>
+                    
+                    <!-- File Upload Section -->
+                    <div id="drop-zone-llm" onclick="document.getElementById('fileInput').click()">
+                        <input type="file" id="fileInput" name="file" accept="application/pdf" style="display: none;">
+                        <p>Drag & Drop your PDF file here, or click to select a file</p>
+                    </div>
+                    <button type="button" id="submitBtn">Submit PDF</button>
+                </form>
+            </div>
+            
+            <!-- Form for Find Relevant CPT Codes -->
+            <div id="tfidfForm" class="form-container" style="display: block;">
+                <form id="tfidfUploadForm" action="/find_relevant_cpt_tfidf/" method="post" enctype="multipart/form-data">
+                    <!-- File Upload Section -->
+                    <div id="drop-zone-matching" onclick="document.getElementById('fileInputTfidf').click()">
+                        <input type="file" id="fileInputTfidf" name="file" accept="application/pdf" style="display: none;">
+                        <p>Drag & Drop your PDF file here, or click to select a file</p>
+                    </div>
+                    <button type="button" id="submitTfidfBtn">Submit PDF</button>
+                </form>
+            </div>
+            
             <div id="status"></div>
             <div id="loading-container" style="display: none;">
                 <span class="loader"></span>
@@ -55,96 +80,138 @@
     </div>
 
     <script>
-        const dropZone = document.getElementById('drop-zone');
-        const fileInput = document.getElementById('fileInput');
-        const companyInput = document.getElementById('companyInput');
-        const form = document.getElementById('uploadForm');
-        const status = document.getElementById('status');
-        const submitBtn = document.getElementById('submitBtn');
-        const loadingContainer = document.getElementById('loading-container');
-        const cptCodesBody = document.getElementById('cptCodesBody');
+        // Tab Switching Logic
+        function showForm(formId) {
+            // Hide all forms
+            document.querySelectorAll('.form-container').forEach(container => {
+                container.style.display = 'none';
+            });
+    
+            // Remove active class from all buttons
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.classList.remove('active');
+            });
+    
+            // Show the selected form and activate the corresponding tab button
+            document.getElementById(formId).style.display = 'block';
+            document.querySelector(`[onclick="showForm('${formId}')"]`).classList.add('active');
+        }
+    
+        // Drag-and-Drop Handling for Both Forms
+        const handleDragAndDrop = (dropZoneId, fileInputId) => {
+            const dropZone = document.getElementById(dropZoneId);
+            const fileInput = document.getElementById(fileInputId);
+            const status = document.getElementById('status');
+    
+            // Handle drag over event
+            dropZone.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                dropZone.classList.add('hover');
+            });
+    
+            // Handle drag leave event
+            dropZone.addEventListener('dragleave', () => {
+                dropZone.classList.remove('hover');
+            });
+    
+            // Handle drop event
+            dropZone.addEventListener('drop', (e) => {
+                e.preventDefault();
+                dropZone.classList.remove('hover');
+                const files = e.dataTransfer.files;
+                if (files.length) {
+                    fileInput.files = files;
+                    status.textContent = `File ready to submit: ${files[0].name}`;
+                }
+            });
+    
+            // Add change event listener for click-to-upload
+            fileInput.addEventListener('change', (e) => {
+                if (e.target.files.length) {
+                    status.textContent = `File ready to submit: ${e.target.files[0].name}`;
+                }
+            });
+        };
+    
+        // Initialize drag-and-drop functionality for both forms
+        handleDragAndDrop('drop-zone-llm', 'fileInput');
+        handleDragAndDrop('drop-zone-matching', 'fileInputTfidf');
+    
+        // Form Submission Logic
+        async function submitForm(formId, actionUrl, includeCompany = false) {
+            const form = document.getElementById(formId);
+            const fileInput = document.getElementById(includeCompany ? 'fileInput' : 'fileInputTfidf');
+            const status = document.getElementById('status');
 
-        // Handle drag over event
-        dropZone.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            dropZone.classList.add('hover');
-        });
-
-        // Handle drag leave event
-        dropZone.addEventListener('dragleave', () => {
-            dropZone.classList.remove('hover');
-        });
-
-        // Handle drop event (drag-and-drop functionality)
-        dropZone.addEventListener('drop', (e) => {
-            e.preventDefault();
-            dropZone.classList.remove('hover');
-            const files = e.dataTransfer.files;
-            if (files.length) {
-                fileInput.files = files;
-                status.textContent = `File ready to submit: ${files[0].name}`;
+            // Check if file is selected
+            if (!fileInput.files || !fileInput.files[0]) {
+                status.textContent = "Please select a file first";
+                return;
             }
-        });
 
-        // Handle click to submit the form manually
-        submitBtn.addEventListener('click', () => {
-            if (fileInput.files.length === 0) {
-                // If no file is selected, open file picker
-                fileInput.click();
-            } else {
-                // If a file is selected, submit the form
-                submitForm();
-            }
-        });
-
-        // Trigger file selection
-        fileInput.addEventListener('change', () => {
-            if (fileInput.files.length > 0) {
-                status.textContent = `File ready to submit: ${fileInput.files[0].name}`;
-            }
-        });
-
-        // Handle form submission via Fetch API
-        async function submitForm() {
             const formData = new FormData(form);
-            formData.append("company", companyInput.value);  // Add company name to form data
+            formData.append('file', fileInput.files[0]); // Explicitly append file
+
+            // Add company name if needed
+            if (includeCompany) {
+                const companyInput = document.getElementById('companyInput');
+                if (!companyInput.value) {
+                    status.textContent = "Please enter a company name";
+                    return;
+                }
+                formData.append("company", companyInput.value);
+            }
+
+            const loadingContainer = document.getElementById('loading-container');
             loadingContainer.style.display = 'flex';
-            status.textContent = "";  
+            status.textContent = "";
 
             try {
-                const response = await fetch(form.action, {
+                const response = await fetch(actionUrl, {
                     method: 'POST',
                     body: formData
                 });
 
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
                 const result = await response.json();
-                loadingContainer.style.display = 'none';
                 status.textContent = "Parsing complete!";
 
                 // Clear previous results
+                const cptCodesBody = document.getElementById('cptCodesBody');
                 cptCodesBody.innerHTML = "";
 
-                // Display JSON results in the table
+                // Display results
                 result.CPT_codes.slice(0, 5).forEach(([code, description]) => {
-    const row = document.createElement('tr');
-
-    const codeCell = document.createElement('td');
-    codeCell.textContent = code;
-    row.appendChild(codeCell);
-
-    const descCell = document.createElement('td');
-    descCell.textContent = description;
-    row.appendChild(descCell);
-
-    cptCodesBody.appendChild(row);
-});
+                    const row = document.createElement('tr');
+                    const codeCell = document.createElement('td');
+                    const descCell = document.createElement('td');
+                    
+                    codeCell.textContent = code;
+                    descCell.textContent = description;
+                    
+                    row.appendChild(codeCell);
+                    row.appendChild(descCell);
+                    cptCodesBody.appendChild(row);
+                });
             } catch (error) {
                 status.textContent = `Error: ${error.message}`;
             } finally {
-                loadingContainer.style.display = 'none'; // Hide loading icon
-                fileInput.value = ""; // Clear file input so the same or new file can be selected again
+                loadingContainer.style.display = 'none';
+                fileInput.value = "";
             }
         }
+    
+        // Submit Button Handlers
+        document.getElementById('submitBtn').addEventListener('click', () => {
+            submitForm('uploadForm', '/pdf_to_cpt/', true);
+        });
+    
+        document.getElementById('submitTfidfBtn').addEventListener('click', () => {
+            submitForm('tfidfUploadForm', '/find_relevant_cpt_tfidf/', false);
+        });
     </script>
 </body>
 </html>

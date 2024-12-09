@@ -8,6 +8,7 @@ import os
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from LLM_matching.text_to_CPT import pdf_to_cpt
+from LLM_matching.matching import find_relevant_cpt_codes_tfidf
 
 UPLOAD_DIR = "uploads"
 app = FastAPI()
@@ -31,8 +32,11 @@ async def index(request: Request):
 
 
 # Route to handle the PDF upload
-@app.post("/upload_pdf/")
-async def upload_pdf(file: UploadFile = File(...), company: str = Form(...)):
+@app.post("/pdf_to_cpt/")
+async def upload_pdf(
+    file: UploadFile = File(...),
+    company: str = Form(...),
+):
     file_path = os.path.join(UPLOAD_DIR, file.filename)
     with open(file_path, "wb") as buffer:
         buffer.write(await file.read())
@@ -41,6 +45,18 @@ async def upload_pdf(file: UploadFile = File(...), company: str = Form(...)):
         os.remove(file_path)
     except Exception as e:
         print(f"Error deleting file {file_path}: {e}")
+    return {"CPT_codes": list(corresponding_CPT.items())}
+
+
+@app.post("/find_relevant_cpt_tfidf/")
+async def find_relevant_cpt_tfidf_handler(file: UploadFile = File(...)):
+    file_path = os.path.join(UPLOAD_DIR, file.filename)
+    with open(file_path, "wb") as buffer:
+        buffer.write(await file.read())
+
+    corresponding_CPT = find_relevant_cpt_codes_tfidf(file=file_path)
+    print(corresponding_CPT)
+    os.remove(file_path)  # Clean up file after processing
     return {"CPT_codes": list(corresponding_CPT.items())}
 
 
