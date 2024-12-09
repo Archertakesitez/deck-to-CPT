@@ -99,10 +99,10 @@ body {
 h1 {
     font-size: 24px;
     color: #00008B;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
-#drop-zone {
+#drop-zone-llm, #drop-zone-matching {
     border: 2px dashed #ccc;
     border-radius: 8px;
     padding: 40px;
@@ -110,16 +110,16 @@ h1 {
     transition: background-color 0.3s ease;
 }
 
-#drop-zone.hover {
+#drop-zone-llm.hover, #drop-zone-matching.hover {
     background-color: #e0f7fa;
 }
 
-#drop-zone p {
+#drop-zone-llm p, #drop-zone-matching p {
     font-size: 18px;
     color: #777;
 }
 
-#submitBtn {
+#submitBtn, #submitTfidfBtn {
     margin-top: 20px;
     padding: 10px 20px;
     background-color: #6A5ACD;
@@ -131,7 +131,7 @@ h1 {
     transition: background-color 0.3s ease;
 }
 
-#submitBtn:hover {
+#submitBtn:hover, #submitTfidfBtn:hover {
     background-color: #00008B;
 }
 
@@ -228,4 +228,44 @@ h1 {
 #companyInput:focus {
     border-color: #6A5ACD;
     outline: none;
+}
+
+.method-tabs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.tab-button {
+    padding: 10px 20px;
+    cursor: pointer;
+    border: none;
+    background-color: #6A5ACD;
+    color: white;
+    margin: 0 5px;
+    font-size: 16px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.tab-button:hover {
+    background-color: #00008B;
+}
+
+.tab-button.active {
+    background-color: #00008B;
+    color: white;
+}
+
+.form-container {
+    display: none;
+}
+
+.method-instruction {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 10px;
+    margin-top: 5px;
+    font-weight: normal;
+    font-style: italic;
 }

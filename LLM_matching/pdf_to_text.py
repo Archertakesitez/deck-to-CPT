@@ -45,12 +45,11 @@ def replace_company_names(text: str, company_names: str) -> str:
     embedded_pattern = re.compile(
         re.escape(company_names.replace(" ", "")), re.IGNORECASE
     )
-    embedded_pattern2 = re.compile(
-        re.escape(company_names), re.IGNORECASE)
-    
+    embedded_pattern2 = re.compile(re.escape(company_names), re.IGNORECASE)
+
     embedded_pattern3 = re.compile(
-    re.escape(company_names.replace(" ", r"[\w\W]")), re.IGNORECASE
-)
+        re.escape(company_names.replace(" ", r"[\w\W]")), re.IGNORECASE
+    )
 
     text = embedded_pattern.sub("[company name]", text)
     text = embedded_pattern2.sub("[company name]", text)
@@ -58,23 +57,45 @@ def replace_company_names(text: str, company_names: str) -> str:
     return text
 
 
-
 def read_pdf(file: str, company: str) -> list:
+    """Extract and process text from PDF file, skipping team/leadership pages.
+
+    Args:
+        file (str): Path to PDF file
+        company (str): Company name to replace with placeholder
+
+    Returns:
+        list: List of processed text strings, one per relevant page
+    """
     reader = PdfReader(file)
     res = []
-    number_of_pages = len(reader.pages)
-    for i in range(number_of_pages):
-        page = reader.pages[i]
-        text = page.extract_text()
-        text = text.replace("\n", " ")
+
+    for page in reader.pages:
+        text = page.extract_text().replace("\n", " ")
         text = replace_contact_info(text)
         text = replace_company_names(text, company)
         text = replace_names_with_placeholders(text)
-        if "leadership" in text.lower() or "team" in text.lower() or "founder" in text.lower():
-            # print(f"page{i} skipped")
+
+        # Skip team/leadership pages
+        if any(word in text.lower() for word in ["leadership", "team", "founder"]):
             continue
+
         res.append(text)
+
     return res
+
+
+def read_pdf_with_cname(file: str) -> list:
+    """Extract text from PDF file while preserving company names.
+
+    Args:
+        file (str): Path to PDF file
+
+    Returns:
+        list: List of text strings, one per page with newlines replaced by spaces
+    """
+    reader = PdfReader(file)
+    return [page.extract_text().replace("\n", " ") for page in reader.pages]
 
 
 # if __name__ == "__main__":
