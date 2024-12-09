@@ -18,7 +18,7 @@ def convert_csv_to_pickle():
 
 def load_cpt_data():
     """Load CPT data from pickle file"""
-    pickle_file = "../data/cpt_codes.pkl"
+    pickle_file = "../pkl/cpt_codes.pkl"
     return pd.read_pickle(pickle_file)
 
 
