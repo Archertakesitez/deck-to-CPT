@@ -61,11 +61,3 @@ def pdf_to_cpt(file: str, company: str) -> str:
     ]
     cpt_codes = predict_cpt_codes(messages)
     return cpt_codes
-
-
-# if __name__ == "__main__":
-#     print(
-#         pdf_to_cpt(
-#             file="../data/April+Health+Introduction+Deck.pdf", company="april health"
-#         )
-#     )
