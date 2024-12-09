@@ -14,6 +14,7 @@ On our website, you can find two tabs on the left — "Keyword Matching" and "AI
       <img src="https://github.com/Archertakesitez/deck-to-CPT/blob/main/readme_resource/TFIDF.png" alt="Matching" width="700"/>
 </p>
 When the user uploads a PDF file through the "Keyword Matching" option, our function processes it using TF-IDF (Term Frequency-Inverse Document Frequency) vectorization to analyze the document's content, and matches it against a database of CPT code descriptions. The function calculates similarity scores between the PDF content and CPT descriptions, and shows the top 5 most relevant matches.
+
 <p align = "center">
       <img src="https://github.com/Archertakesitez/deck-to-CPT/blob/main/readme_resource/LLM.png" alt="LLM" width="700"/>
 </p>
