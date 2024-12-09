@@ -96,7 +96,3 @@ def read_pdf_with_cname(file: str) -> list:
     """
     reader = PdfReader(file)
     return [page.extract_text().replace("\n", " ") for page in reader.pages]
-
-
-# if __name__ == "__main__":
-#     print(read_pdf("Hera Fertility.pdf", "hera fertility"))

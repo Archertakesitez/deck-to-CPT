@@ -45,12 +45,3 @@ def find_relevant_cpt_codes_tfidf(
 
     except Exception as e:
         return {"error": f"An error occurred: {str(e)}"}
-
-
-# relevant_codes = find_relevant_cpt_codes_tfidf(file=)
-
-# Display the relevant CPT codes
-# if __name__ == "__main__":
-#     file = "../data/April+Health+Introduction+Deck.pdf"
-
-#     print(find_relevant_cpt_codes_tfidf(file=file))
