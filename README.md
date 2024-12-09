@@ -6,9 +6,18 @@
 Capstone Project for NYU's graduate course: DS-GA 1006
 
 ## Abstract
-This project is a web application that helps match healthcare-related PDF documents (such as pitch decks or medical documentation) with appropriate CPT (Current Procedural Terminology) codes. Users can upload PDF documents through a web interface and choose between two analysis methods: a keyword-based matching system using TF-IDF, or an AI-powered analysis using GPT-4. The application processes the uploaded documents, removes sensitive information (like emails, phone numbers, and personal names), and returns the top 5 most relevant CPT codes with their descriptions. This tool is particularly useful for healthcare startups and medical professionals who need to quickly identify appropriate medical billing codes based on service descriptions.
+This project is a web application that helps match healthcare-related PDF documents (such as pitch decks or medical documentation) with appropriate CPT (Current Procedural Terminology) codes. Users can upload PDF documents through a web interface and choose between two analysis methods: a keyword-based matching system using TF-IDF, or an AI-powered analysis using GPT-4. The application processes the uploaded documents, and returns the top 5 most relevant CPT codes with their descriptions. This tool is particularly useful for healthcare startups and medical professionals who need to quickly identify appropriate medical billing codes based on service descriptions.
 
 ## Implementation
+On our website, you can find two tabs on the left — "Keyword Matching" and "AI Analysis". 
+
+When the user uploads a PDF file through the "Keyword Matching" option, our function processes it using TF-IDF (Term Frequency-Inverse Document Frequency) vectorization to analyze the document's content, and matches it against a database of CPT code descriptions. The function calculates similarity scores between the PDF content and CPT descriptions, and shows the top 5 most relevant matches.
+
+When a user uploads a PDF file and provides a company name through the "AI Analysis" option, our function processes the PDF by first removing sensitive information (like emails, phone numbers, and company names), then sends the sanitized text to GPT-4 through the OpenAI API. The AI model analyzes the content and returns the top 5 most relevant CPT codes based on the healthcare services or procedures described in the document. **Please note that if you want to use the AI Analysis option, you need to populate this line:**
+```
+openai.api_key = "replace your api key here"
+```
+**in [LLM_matching/text_to_CPY.py](https://github.com/Archertakesitez/deck-to-CPT/blob/main/LLM_matching/text_to_CPT.py) with your own OPENAI API key.**
 
 ## Getting Started 🚀
 ### Installation
