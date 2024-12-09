@@ -11,18 +11,12 @@ This project is a web application that helps match healthcare-related PDF docume
 ## Implementation
 On our website, you can find two tabs on the left — "Keyword Matching" and "AI Analysis". 
 
-![Matching](https://github.com/Archertakesitez/deck-to-CPT/blob/main/readme_resource/TFIDF.png)
-
 When the user uploads a PDF file through the "Keyword Matching" option, our function processes it using TF-IDF (Term Frequency-Inverse Document Frequency) vectorization to analyze the document's content, and matches it against a database of CPT code descriptions. The function calculates similarity scores between the PDF content and CPT descriptions, and shows the top 5 most relevant matches.
 
-![LLM](https://github.com/Archertakesitez/deck-to-CPT/blob/main/readme_resource/LLM.png)
-
 When a user uploads a PDF file and provides a company name through the "AI Analysis" option, our function processes the PDF by first removing sensitive information (like emails, phone numbers, and company names), then sends the sanitized text to GPT-4 through the OpenAI API. The AI model analyzes the content and returns the top 5 most relevant CPT codes based on the healthcare services or procedures described in the document. Please note that if you want to use the AI Analysis option, **you need to populate this line:**
-
 ```
 openai.api_key = "replace your api key here"
 ```
-
 in [LLM_matching/text_to_CPY.py](https://github.com/Archertakesitez/deck-to-CPT/blob/main/LLM_matching/text_to_CPT.py) with your own OPENAI API key.
 
 ## Getting Started 🚀
