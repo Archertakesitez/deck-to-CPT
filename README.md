@@ -31,7 +31,7 @@ Then you are ready to go!
 cd web_app
 python main.py
 ```
-Then you can visit our website running on http://127.0.0.1:8000/
+Now you can visit our website running on http://127.0.0.1:8000/
 
 ## Authors ⭐️
 - **[Rosy Xu](https://github.com/yinyin0916)**
