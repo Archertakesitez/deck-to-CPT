@@ -24,4 +24,11 @@ pip install -r requirements.txt
 ```
 Then you are ready to go!
 
-### Demo
+### Run the website
+```
+cd web_app
+python main.py
+```
+Then you can visit our website running on http://127.0.0.1:8000/
+
+
