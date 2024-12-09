@@ -4,6 +4,7 @@
       <img src="https://github.com/Archertakesitez/deck-to-CPT/blob/main/readme_resource/first_page.png" alt="Convert Deck To CPT Codes" width="700"/>
 </p>
 Capstone Project for NYU's graduate course: DS-GA 1006
+
 Sponsored by [Maccabee Ventures](https://www.maccabee.vc/)
 
 ## Abstract
