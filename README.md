@@ -5,6 +5,11 @@
 </p>
 Capstone Project for NYU's graduate course: DS-GA 1006
 
+## Hightlights 🔥
+- two approaches to analyze your PDf document
+- data privacy ensured
+- a dataset containing CPT codes and their correspondinng descriptions provided for you
+
 ## Abstract
 This project is a web application that helps match healthcare-related PDF documents (such as pitch decks or medical documentation) with appropriate CPT (Current Procedural Terminology) codes. Users can upload PDF documents through a web interface and choose between two analysis methods: a keyword-based matching system using TF-IDF, or an AI-powered analysis using GPT-4. The application processes the uploaded documents, and returns the top 5 most relevant CPT codes with their descriptions. This tool is particularly useful for healthcare startups and medical professionals who need to quickly identify appropriate medical billing codes based on service descriptions.
 
