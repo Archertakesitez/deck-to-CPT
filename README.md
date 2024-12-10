@@ -6,7 +6,7 @@
 Capstone Project for NYU's graduate course: DS-GA 1006
 
 ## Hightlights ⭐️
-- two approaches to analyze your PDf document
+- two approaches to analyze your PDF document
 - data privacy ensured
 - a dataset containing CPT codes and their correspondinng descriptions provided for you
 
