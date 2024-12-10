@@ -5,7 +5,7 @@
 </p>
 Capstone Project for NYU's graduate course: DS-GA 1006
 
-## Hightlights 🔥
+## Hightlights ⭐️
 - two approaches to analyze your PDf document
 - data privacy ensured
 - a dataset containing CPT codes and their correspondinng descriptions provided for you
@@ -51,7 +51,7 @@ python main.py
 ```
 Now you can visit our website running on http://127.0.0.1:8000/
 
-## Authors ⭐️
+## Authors
 - **[Rosy Xu](https://github.com/yinyin0916)**
 - **[Tracy Zhao](https://github.com/Tongyu-Zhao)**
 - **[Albert Kong](https://github.com/AlbertKong0827)**
