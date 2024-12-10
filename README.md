@@ -10,7 +10,7 @@ This project is a web application that helps match healthcare-related PDF docume
 
 ## Implementation
 <p align = "center">
-      <img src="https://github.com/Archertakesitez/deck-to-CPT/blob/main/readme_resource/workflow.png" alt="workflow" width="600"/>
+      <img src="https://github.com/Archertakesitez/deck-to-CPT/blob/main/readme_resource/workflow_1.png" alt="workflow" width="600"/>
 </p>
 On our website, you can find two tabs on the left — "Keyword Matching" and "AI Analysis". 
 
