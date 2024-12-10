@@ -9,6 +9,9 @@ Capstone Project for NYU's graduate course: DS-GA 1006
 This project is a web application that helps match healthcare-related PDF documents (such as pitch decks or medical documentation) with appropriate CPT (Current Procedural Terminology) codes. Users can upload PDF documents through a web interface and choose between two analysis methods: a keyword-based matching system using TF-IDF, or an AI-powered analysis using GPT-4. The application processes the uploaded documents, and returns the top 5 most relevant CPT codes with their descriptions. This tool is particularly useful for healthcare startups and medical professionals who need to quickly identify appropriate medical billing codes based on service descriptions.
 
 ## Implementation
+<p align = "center">
+      <img src="https://github.com/Archertakesitez/deck-to-CPT/blob/main/readme_resource/workflow.png" alt="workflow" width="600"/>
+</p>
 On our website, you can find two tabs on the left — "Keyword Matching" and "AI Analysis". 
 
 When the user uploads a PDF file through the "Keyword Matching" option, our function processes it using TF-IDF (Term Frequency-Inverse Document Frequency) vectorization to analyze the document's content, and matches it against a database of CPT code descriptions. The function calculates similarity scores between the PDF content and CPT descriptions, and shows the top 5 most relevant matches.
