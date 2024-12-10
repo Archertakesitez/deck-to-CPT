@@ -1,11 +1,10 @@
 # Convert Deck To CPT Codes
-> [Project Poster](https://docs.google.com/presentation/d/1Y41QMzZbWnG8kBZRIZNPXKPdIuRKFz9vI5gUiLKw5LI/edit?usp=sharing)
-> 
 > Sponsored by [Maccabee Ventures](https://www.maccabee.vc/)
 <p align = "center">
       <img src="https://github.com/Archertakesitez/deck-to-CPT/blob/main/readme_resource/first_page.png" alt="Convert Deck To CPT Codes" width="700"/>
 </p>
 Capstone Project for NYU's graduate course: DS-GA 1006
+> [Project Poster](https://docs.google.com/presentation/d/1Y41QMzZbWnG8kBZRIZNPXKPdIuRKFz9vI5gUiLKw5LI/edit?usp=sharing)
 
 ## Hightlights ⭐️
 - two approaches to analyze your PDF document
