@@ -3,7 +3,7 @@
 >
 > Rosy Xu, Tongyu Zhao, Albert Kong, Erchi Zhang
 > 
-> Sponsored by [Maccabee Ventures](https://www.maccabee.vc/)
+> Sponsored by Maccabee Ventures
 <p align = "center">
       <img src="https://github.com/Archertakesitez/deck-to-CPT/blob/main/readme_resource/after_parsing.png" alt="Convert Deck To CPT Codes" width="700"/>
 </p>
