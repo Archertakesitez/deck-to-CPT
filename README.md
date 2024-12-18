@@ -1,7 +1,7 @@
 # Convert Deck To CPT Codes
 > Sponsored by [Maccabee Ventures](https://www.maccabee.vc/)
 <p align = "center">
-      <img src="https://github.com/Archertakesitez/deck-to-CPT/blob/main/readme_resource/first_page.png" alt="Convert Deck To CPT Codes" width="700"/>
+      <img src="https://github.com/Archertakesitez/deck-to-CPT/blob/main/readme_resource/after_parsing.png" alt="Convert Deck To CPT Codes" width="700"/>
 </p>
 Capstone Project for NYU's graduate course: DS-GA 1006
 
