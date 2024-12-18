@@ -61,3 +61,6 @@ Now you can visit our website running on http://127.0.0.1:8000/
 - **[Albert Kong](https://github.com/AlbertKong0827)**
 - **[Erchi Zhang](https://github.com/Archertakesitez)**
 
+## Sponsorship
+This project is sponsored by [Maccabee Ventures](https://www.maccabee.vc/).
+We sincerely thank Moshe Bellows for all his help and guidance. 
