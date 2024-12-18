@@ -5,7 +5,7 @@
 </p>
 Capstone Project for NYU's graduate course: DS-GA 1006
 
-[Project Poster](https://github.com/Archertakesitez/deck-to-CPT/blob/main/readme_resource/21-Franklin.pdf)
+[Project Poster](https://archertakesitez.github.io/static/assets/papers/21-Franklin.pdf)
 
 ## Hightlights ⭐️
 - two approaches to analyze your PDF document
